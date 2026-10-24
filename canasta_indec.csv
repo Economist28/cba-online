@@ -1,0 +1,58 @@
+grupo,rubro,producto,cantidad_mensual,unidad
+Panificados y cereales,Pan,Pan,6750,g
+Panificados y cereales,Galletitas dulces,Galletitas dulces,210,g
+Panificados y cereales,Arroz,Arroz,1200,g
+Panificados y cereales,Galletitas de agua,Galletitas de agua,420,g
+Panificados y cereales,Otras harinas,Harina de maíz,210,g
+"Verduras, frutas y legumbres",Legumbres secas,Lentejas,240,g
+"Verduras, frutas y legumbres",Legumbres secas,Arvejas,240,g
+"Azúcar, dulces, bebidas y otros",Bebidas no alcohólicas,Gaseosas,3450,cc
+"Azúcar, dulces, bebidas y otros",Bebidas no alcohólicas,Jugos concentrados,3450,cc
+"Azúcar, dulces, bebidas y otros",Bebidas no alcohólicas,Soda,3450,cc
+Panificados y cereales,Harina de trigo,Harina de trigo,1080,g
+Panificados y cereales,Fideos,Fideos,1740,g
+"Verduras, frutas y legumbres",Papa,Papa,6510,g
+"Verduras, frutas y legumbres",Batata,Batata,510,g
+"Verduras, frutas y legumbres",Hortalizas,Acelga,5730,g
+"Verduras, frutas y legumbres",Hortalizas,Cebolla,5730,g
+"Verduras, frutas y legumbres",Hortalizas,Lechuga,5730,g
+"Verduras, frutas y legumbres",Hortalizas,Tomate perita,5730,g
+"Verduras, frutas y legumbres",Hortalizas,Zanahoria,5730,g
+"Verduras, frutas y legumbres",Hortalizas,Zapallo,5730,g
+"Verduras, frutas y legumbres",Hortalizas,Tomate envasado,5730,g
+"Verduras, frutas y legumbres",Frutas,Manzana,4950,g
+"Verduras, frutas y legumbres",Frutas,Mandarina,4950,g
+"Verduras, frutas y legumbres",Frutas,Naranja,4950,g
+"Verduras, frutas y legumbres",Frutas,Banana,4950,g
+"Verduras, frutas y legumbres",Frutas,Pera,4950,g
+Carnes y huevos,Carnes,Asado,6270,g
+Carnes y huevos,Carnes,Carnaza común,6270,g
+Carnes y huevos,Carnes,Espinazo,6270,g
+Carnes y huevos,Carnes,Paleta,6270,g
+Carnes y huevos,Carnes,Carne picada,6270,g
+Carnes y huevos,Carnes,Nalga,6270,g
+Carnes y huevos,Carnes,Pollo,6270,g
+Carnes y huevos,Carnes,Pescado,6270,g
+Carnes y huevos,Menudencias,Hígado,270,g
+Carnes y huevos,Fiambres,Paleta cocida,60,g
+Carnes y huevos,Fiambres,Salame,60,g
+Carnes y huevos,Huevos,Huevos,600,g
+Lácteos y grasas,Leche,Leche,9270,g
+Lácteos y grasas,Queso,Queso crema,330,g
+Lácteos y grasas,Queso,Queso cuartirolo,330,g
+Lácteos y grasas,Queso,Queso de rallar,330,g
+Lácteos y grasas,Yogur,Yogur,570,g
+Lácteos y grasas,Manteca,Manteca,60,g
+Lácteos y grasas,Aceite,Aceite,1200,g
+"Azúcar, dulces, bebidas y otros",Azúcar,Azúcar,1230,g
+"Azúcar, dulces, bebidas y otros",Dulces,Dulce de batata,330,g
+"Azúcar, dulces, bebidas y otros",Dulces,Mermelada,330,g
+"Azúcar, dulces, bebidas y otros",Dulces,Dulce de leche,330,g
+"Azúcar, dulces, bebidas y otros",Bebidas alcohólicas,Cerveza,1080,cc
+"Azúcar, dulces, bebidas y otros",Bebidas alcohólicas,Vino,1080,cc
+"Azúcar, dulces, bebidas y otros",Sal fina,Sal fina,120,g
+"Azúcar, dulces, bebidas y otros",Condimentos,Mayonesa,120,g
+"Azúcar, dulces, bebidas y otros",Condimentos,Caldos concentrados,120,g
+"Azúcar, dulces, bebidas y otros",Vinagre,Vinagre,60,g
+"Azúcar, dulces, bebidas y otros",Café,Café,30,g
+"Azúcar, dulces, bebidas y otros",Yerba,Yerba,510,g
