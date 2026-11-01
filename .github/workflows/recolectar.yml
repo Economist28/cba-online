@@ -4,17 +4,24 @@ on:
   schedule:
     - cron: "17 12 * * *"   # 12:17 UTC = 9:17 hora argentina
   workflow_dispatch:         # botón "Run workflow" para ejecutarlo a mano
+  push:
+    paths:
+      - config.json          # si cambiás el dato del INDEC, la página se recalcula sola
 
 permissions:
   contents: write
+
+concurrency:
+  group: datos
+  cancel-in-progress: false
 
 jobs:
   recolectar:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -24,10 +31,16 @@ jobs:
       - name: Recolectar precios
         run: python recolectar.py
 
-      - name: Guardar el CSV en el repositorio
+      - name: Procesar la CBA y actualizar la página
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python procesar.py
+
+      - name: Guardar los datos en el repositorio
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
-          git add datos_crudos/
-          git diff --staged --quiet || git commit -m "Precios $(TZ=America/Argentina/Buenos_Aires date +%F)"
+          git add datos_crudos/ clasificaciones.csv docs/
+          git diff --staged --quiet || git commit -m "CBA online $(TZ=America/Argentina/Buenos_Aires date +%F)"
+          git pull --rebase
           git push
