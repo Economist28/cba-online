@@ -1,0 +1,308 @@
+{
+ "actualizado": "2026-11-01 17:48",
+ "fecha_ultima": "2026-11-01",
+ "fecha_base": "2026-10-07",
+ "dias": 24,
+ "precios_relevados": 36854,
+ "precios_validos": 18787,
+ "indec": {
+  "valor": 239058.22,
+  "mes": "septiembre 2026"
+ },
+ "hoy": {
+  "cba": 268413,
+  "familia": 829396,
+  "brecha": 12.3,
+  "var_acum": 0.31,
+  "var_diaria": -0.08
+ },
+ "serie": [
+  {
+   "fecha": "2026-10-07",
+   "indice": 100.0,
+   "cba": 267593
+  },
+  {
+   "fecha": "2026-10-08",
+   "indice": 100.15,
+   "cba": 268003
+  },
+  {
+   "fecha": "2026-10-09",
+   "indice": 99.92,
+   "cba": 267372
+  },
+  {
+   "fecha": "2026-10-10",
+   "indice": 99.78,
+   "cba": 266992
+  },
+  {
+   "fecha": "2026-10-11",
+   "indice": 99.72,
+   "cba": 266847
+  },
+  {
+   "fecha": "2026-10-12",
+   "indice": 100.02,
+   "cba": 267649
+  },
+  {
+   "fecha": "2026-10-13",
+   "indice": 100.41,
+   "cba": 268682
+  },
+  {
+   "fecha": "2026-10-14",
+   "indice": 100.36,
+   "cba": 268548
+  },
+  {
+   "fecha": "2026-10-15",
+   "indice": 100.66,
+   "cba": 269359
+  },
+  {
+   "fecha": "2026-10-17",
+   "indice": 100.69,
+   "cba": 269445
+  },
+  {
+   "fecha": "2026-10-18",
+   "indice": 101.31,
+   "cba": 271091
+  },
+  {
+   "fecha": "2026-10-19",
+   "indice": 101.48,
+   "cba": 271550
+  },
+  {
+   "fecha": "2026-10-21",
+   "indice": 101.68,
+   "cba": 272098
+  },
+  {
+   "fecha": "2026-10-22",
+   "indice": 101.25,
+   "cba": 270932
+  },
+  {
+   "fecha": "2026-10-23",
+   "indice": 100.07,
+   "cba": 267778
+  },
+  {
+   "fecha": "2026-10-24",
+   "indice": 99.86,
+   "cba": 267230
+  },
+  {
+   "fecha": "2026-10-25",
+   "indice": 100.29,
+   "cba": 268370
+  },
+  {
+   "fecha": "2026-10-26",
+   "indice": 100.47,
+   "cba": 268859
+  },
+  {
+   "fecha": "2026-10-27",
+   "indice": 100.73,
+   "cba": 269534
+  },
+  {
+   "fecha": "2026-10-28",
+   "indice": 101.59,
+   "cba": 271849
+  },
+  {
+   "fecha": "2026-10-29",
+   "indice": 100.45,
+   "cba": 268807
+  },
+  {
+   "fecha": "2026-10-30",
+   "indice": 100.18,
+   "cba": 268079
+  },
+  {
+   "fecha": "2026-10-31",
+   "indice": 100.39,
+   "cba": 268629
+  },
+  {
+   "fecha": "2026-11-01",
+   "indice": 100.31,
+   "cba": 268413
+  }
+ ],
+ "cadenas": [
+  {
+   "cadena": "Carrefour",
+   "cba": 264951,
+   "familia": 818699,
+   "vs_indec": 10.8
+  },
+  {
+   "cadena": "Día",
+   "cba": 275910,
+   "familia": 852562,
+   "vs_indec": 15.4
+  },
+  {
+   "cadena": "Jumbo",
+   "cba": 295808,
+   "familia": 914047,
+   "vs_indec": 23.7
+  }
+ ],
+ "composicion": [
+  {
+   "rubro": "Carnes",
+   "pct": 28.5
+  },
+  {
+   "rubro": "Pan",
+   "pct": 11.0
+  },
+  {
+   "rubro": "Papa",
+   "pct": 9.9
+  },
+  {
+   "rubro": "Hortalizas",
+   "pct": 9.9
+  },
+  {
+   "rubro": "Leche",
+   "pct": 7.3
+  },
+  {
+   "rubro": "Frutas",
+   "pct": 5.2
+  },
+  {
+   "rubro": "Bebidas alcohólicas",
+   "pct": 3.3
+  },
+  {
+   "rubro": "Queso",
+   "pct": 3.2
+  },
+  {
+   "rubro": "Yogur",
+   "pct": 2.7
+  },
+  {
+   "rubro": "Aceite",
+   "pct": 2.1
+  },
+  {
+   "rubro": "Fideos",
+   "pct": 1.9
+  },
+  {
+   "rubro": "Bebidas no alcohólicas",
+   "pct": 1.8
+  },
+  {
+   "rubro": "Arroz",
+   "pct": 1.7
+  },
+  {
+   "rubro": "Huevos",
+   "pct": 1.7
+  },
+  {
+   "rubro": "Dulces",
+   "pct": 1.1
+  },
+  {
+   "rubro": "Yerba",
+   "pct": 1.1
+  },
+  {
+   "rubro": "Galletitas dulces",
+   "pct": 1.0
+  },
+  {
+   "rubro": "Galletitas de agua",
+   "pct": 1.0
+  },
+  {
+   "rubro": "Fiambres",
+   "pct": 0.8
+  },
+  {
+   "rubro": "Azúcar",
+   "pct": 0.7
+  },
+  {
+   "rubro": "Harina de trigo",
+   "pct": 0.7
+  },
+  {
+   "rubro": "Café",
+   "pct": 0.6
+  },
+  {
+   "rubro": "Batata",
+   "pct": 0.6
+  },
+  {
+   "rubro": "Manteca",
+   "pct": 0.5
+  },
+  {
+   "rubro": "Menudencias",
+   "pct": 0.5
+  },
+  {
+   "rubro": "Legumbres secas",
+   "pct": 0.4
+  },
+  {
+   "rubro": "Sal fina",
+   "pct": 0.3
+  },
+  {
+   "rubro": "Condimentos",
+   "pct": 0.3
+  },
+  {
+   "rubro": "Otras harinas",
+   "pct": 0.3
+  },
+  {
+   "rubro": "Vinagre",
+   "pct": 0.1
+  }
+ ],
+ "wilcoxon": [
+  {
+   "cara": "Jumbo",
+   "barata": "Carrefour",
+   "n": 56,
+   "dif_mediana": 18.2,
+   "p": 0.0005768123084774539
+  },
+  {
+   "cara": "Día",
+   "barata": "Carrefour",
+   "n": 52,
+   "dif_mediana": 1.6,
+   "p": 0.7637742502081931
+  },
+  {
+   "cara": "Jumbo",
+   "barata": "Día",
+   "n": 52,
+   "dif_mediana": 21.6,
+   "p": 8.036971507411584e-05
+  }
+ ],
+ "imputados_pct": 5.2,
+ "acierto_ia": "96–100%"
+}
