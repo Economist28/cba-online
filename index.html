@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CBA Online · GBA</title>
+<meta name="description" content="Canasta Básica Alimentaria del Gran Buenos Aires valorizada todos los días con precios online de Carrefour, Jumbo y Día.">
+<style>
+  :root {
+    --bg: #f4f3ef;
+    --surface: #fcfcfb;
+    --border: #e3e2dd;
+    --grid: #e9e8e3;
+    --text: #0b0b0b;
+    --text-2: #52514e;
+    --text-3: #7a7974;
+    --accent: #1f3864;
+    --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a;
+    --ref: #8a8983;
+    --up: #b4471f; --down: #12805a;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121211; --surface: #1a1a19; --border: #2c2c2a; --grid: #2a2a28;
+      --text: #f0efec; --text-2: #c3c2b7; --text-3: #94938b; --accent: #9ec5f4;
+      --s1: #3987e5; --s2: #d95926; --s3: #199e70; --ref: #94938b;
+      --up: #ec835a; --down: #3cc48f;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #121211; --surface: #1a1a19; --border: #2c2c2a; --grid: #2a2a28;
+    --text: #f0efec; --text-2: #c3c2b7; --text-3: #94938b; --accent: #9ec5f4;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --ref: #94938b;
+    --up: #ec835a; --down: #3cc48f;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 28px 16px 48px; }
+  header { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; }
+  .kicker { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); font-weight: 600; }
+  h1 { margin: 4px 0 4px; font-size: clamp(26px, 4vw, 36px); line-height: 1.1; color: var(--accent); letter-spacing: -.01em; }
+  .sub { margin: 0; color: var(--text-2); max-width: 640px; }
+  .stamp { font-size: 13px; color: var(--text-3); text-align: right; }
+  .stamp b { color: var(--text-2); font-weight: 600; }
+  .live { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--s3); margin-right: 6px; vertical-align: 1px; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .hero { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .tile .label { font-size: 13px; color: var(--text-2); }
+  .tile .value { font-size: 28px; font-weight: 700; letter-spacing: -.01em; margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .tile.main .value { font-size: 40px; color: var(--accent); }
+  .tile .note { font-size: 12.5px; color: var(--text-3); margin-top: 2px; }
+  .up { color: var(--up); } .down { color: var(--down); }
+
+  .grid2 { display: grid; grid-template-columns: 1.15fr 1fr; gap: 12px; margin-bottom: 12px; }
+  h2 { font-size: 16px; margin: 0 0 2px; }
+  .chart-sub { font-size: 13px; color: var(--text-2); margin: 0 0 12px; }
+  .foot { font-size: 12px; color: var(--text-3); margin-top: 8px; }
+  svg { display: block; width: 100%; height: auto; overflow: visible; }
+  svg text { fill: var(--text-2); font-size: 12px; font-family: inherit; }
+  .axis line, .gridline { stroke: var(--grid); }
+  .tip {
+    position: fixed; pointer-events: none; background: var(--surface); color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font-size: 13px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.12); opacity: 0; transition: opacity .1s; z-index: 10; white-space: nowrap;
+  }
+  .tip b { font-variant-numeric: tabular-nums; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--border); }
+  th { font-size: 12px; color: var(--text-3); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  td.num, th.num { text-align: right; }
+  .pill { display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--text-2); }
+  .pill.si { border-color: var(--s1); color: var(--s1); font-weight: 600; }
+  .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: 0; }
+
+  .method { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .method h3 { font-size: 14px; margin: 0 0 4px; color: var(--accent); }
+  .method p { margin: 0; font-size: 13.5px; color: var(--text-2); }
+  details { margin-top: 12px; }
+  summary { cursor: pointer; font-size: 13px; color: var(--text-2); }
+  .scroll { max-height: 280px; overflow: auto; margin-top: 8px; }
+  footer { margin-top: 22px; font-size: 12.5px; color: var(--text-3); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  a { color: var(--s1); }
+  .toggle { background: none; border: 1px solid var(--border); color: var(--text-2); border-radius: 8px; padding: 4px 10px; font: inherit; font-size: 12px; cursor: pointer; margin-top: 6px; }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr 1fr; }
+    .grid2, .method { grid-template-columns: 1fr; }
+    .stamp { text-align: left; }
+  }
+  @media (max-width: 420px) { .tile.main .value { font-size: 34px; } .tile .value { font-size: 24px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="kicker">Gran Buenos Aires · actualización diaria</div>
+      <h1>CBA Online</h1>
+      <p class="sub">La Canasta Básica Alimentaria del INDEC valorizada todos los días con los precios online de Carrefour, Jumbo y Día.</p>
+    </div>
+    <div class="stamp">
+      <div><span class="live"></span>Precios del <b id="fechaUlt">…</b></div>
+      <div id="actualizado"></div>
+      <button class="toggle" id="tema" type="button">Cambiar tema</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="card tile main">
+      <div class="label">CBA online por adulto equivalente</div>
+      <div class="value" id="cbaHoy">…</div>
+      <div class="note" id="cbaNota"></div>
+    </div>
+    <div class="card tile">
+      <div class="label">Familia tipo (3,09 adultos eq.)</div>
+      <div class="value" id="familia">…</div>
+      <div class="note">2 adultos y 2 niños, por mes</div>
+    </div>
+    <div class="card tile">
+      <div class="label">Brecha con el INDEC</div>
+      <div class="value" id="brecha">…</div>
+      <div class="note" id="brechaNota"></div>
+    </div>
+    <div class="card tile">
+      <div class="label">Índice desde el día base</div>
+      <div class="value" id="acum">…</div>
+      <div class="note" id="acumNota"></div>
+    </div>
+  </section>
+
+  <section class="card" style="margin-bottom:12px">
+    <h2>Evolución del índice de la CBA online</h2>
+    <p class="chart-sub" id="indiceSub">Mismos productos contra el día base (= 100). Pasá el mouse para ver cada día.</p>
+    <svg id="chIndice" viewBox="0 0 960 300" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Índice diario de la CBA online"></svg>
+    <div class="foot">Índice de modelos emparejados: media geométrica de los relativos de cada producto, agregada con ponderaciones de Laspeyres del día base.</div>
+    <details>
+      <summary>Ver los datos en tabla</summary>
+      <div class="scroll"><table id="tablaSerie"><thead><tr><th>Fecha</th><th class="num">Índice</th><th class="num">CBA online</th></tr></thead><tbody></tbody></table></div>
+    </details>
+  </section>
+
+  <section class="grid2">
+    <div class="card">
+      <h2>¿Dónde conviene comprar?</h2>
+      <p class="chart-sub">CBA por adulto equivalente según cadena, promedio del período.</p>
+      <svg id="chCadenas" viewBox="0 0 520 300" role="img" aria-label="CBA por cadena frente al INDEC"></svg>
+      <div class="foot" id="cadenasFoot"></div>
+    </div>
+    <div class="card">
+      <h2>¿En qué se va la canasta?</h2>
+      <p class="chart-sub">Participación de cada rubro en el costo total.</p>
+      <svg id="chComp" viewBox="0 0 520 300" role="img" aria-label="Composición del costo de la CBA por rubro"></svg>
+      <div class="foot" id="compFoot"></div>
+    </div>
+  </section>
+
+  <section class="card" style="margin-bottom:12px">
+    <h2>¿Las diferencias entre cadenas son reales?</h2>
+    <p class="chart-sub">Test de rangos con signo de Wilcoxon sobre el mismo producto en dos cadenas (solo precios observados).</p>
+    <div style="overflow-x:auto"><table id="tablaWil">
+      <thead><tr><th>Comparación</th><th class="num">Productos</th><th class="num">Dif. producto típico</th><th class="num">p-valor</th><th>¿Significativa?</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </section>
+
+  <section class="card">
+    <h2 style="margin-bottom:12px">Cómo se calcula</h2>
+    <div class="method">
+      <div><h3>1 · Recolección</h3><p>Todos los días un script consulta la API pública de las tres tiendas (plataforma VTEX) para los 57 productos de la CBA del INDEC. Corre solo en GitHub Actions.</p></div>
+      <div><h3>2 · Clasificación con IA</h3><p>Un modelo de lenguaje (Gemini) descarta lo que no es el alimento buscado, como gaseosas "sabor naranja". Acierto verificado: <span id="acierto"></span>.</p></div>
+      <div><h3>3 · Cálculo</h3><p>Precio por kilo, filtros de atípicos, imputación de los productos que una cadena no vende online (<span id="imputados"></span> de los precios) y suma de los 30 rubros con las cantidades del INDEC.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <div>Trabajo práctico · Programación para Economistas · UADE · Juan Francisco Ledesma</div>
+    <div><a href="serie_cba_online.csv">Descargar la serie (CSV)</a> · <a href="https://github.com/Economist28/cba-online">Código en GitHub</a></div>
+  </footer>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+const NS = "http://www.w3.org/2000/svg";
+const $ = id => document.getElementById(id);
+const pesos = v => "$" + Math.round(v).toLocaleString("es-AR");
+const pct = (v, d = 1) => (v > 0 ? "+" : "") + v.toLocaleString("es-AR", {minimumFractionDigits: d, maximumFractionDigits: d}) + "%";
+const fechaCorta = s => { const [y, m, d] = s.split("-"); return `${d}/${m}`; };
+const fechaLarga = s => { const [y, m, d] = s.split("-"); return `${d}/${m}/${y}`; };
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const COLOR = {"Carrefour": "--s1", "Día": "--s2", "Jumbo": "--s3"};
+
+function el(tag, attrs = {}, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+const tip = $("tip");
+function showTip(html, ev) {
+  tip.innerHTML = html; tip.style.opacity = 1;
+  const x = Math.min(ev.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
+  tip.style.left = x + "px"; tip.style.top = (ev.clientY - tip.offsetHeight - 12) + "px";
+}
+const hideTip = () => tip.style.opacity = 0;
+const ancho = (svg, def) => Math.round(svg.getBoundingClientRect().width) || def;
+let tRes; addEventListener("resize", () => { clearTimeout(tRes); tRes = setTimeout(() => window.DATOS && dibujar(window.DATOS), 150); });
+
+// tema
+(function () {
+  let t = null;
+  try { t = localStorage.getItem("tema"); } catch (e) {}
+  if (t) document.documentElement.setAttribute("data-theme", t);
+  $("tema").onclick = () => {
+    const oscuro = document.documentElement.getAttribute("data-theme") === "dark" ||
+      (!document.documentElement.getAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
+    const nuevo = oscuro ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", nuevo);
+    try { localStorage.setItem("tema", nuevo); } catch (e) {}
+    if (window.DATOS) dibujar(window.DATOS);
+  };
+})();
+
+function chartIndice(d) {
+  const svg = $("chIndice"); svg.innerHTML = "";
+  const W = ancho(svg, 960), H = W < 600 ? 240 : 300, m = {l: 44, r: 56, t: 14, b: 30};
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const s = d.serie, n = s.length;
+  const vals = s.map(p => p.indice);
+  let lo = Math.min(99, ...vals), hi = Math.max(101, ...vals);
+  lo = Math.floor(lo * 2) / 2 - 0.5; hi = Math.ceil(hi * 2) / 2 + 0.5;
+  const t0 = new Date(s[0].fecha).getTime(), t1 = new Date(s[n - 1].fecha).getTime();
+  const x = f => m.l + (n === 1 ? 0 : (new Date(f).getTime() - t0) / (t1 - t0)) * (W - m.l - m.r);
+  const y = v => m.t + (hi - v) / (hi - lo) * (H - m.t - m.b);
+  const paso = (hi - lo) > 4 ? 1 : 0.5;
+  for (let v = Math.ceil(lo / paso) * paso; v <= hi + 1e-9; v += paso) {
+    el("line", {x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), class: "gridline"}, svg);
+    el("text", {x: m.l - 8, y: y(v) + 4, "text-anchor": "end"}, svg).textContent = v.toLocaleString("es-AR", {minimumFractionDigits: paso < 1 ? 1 : 0});
+  }
+  el("line", {x1: m.l, x2: W - m.r, y1: y(100), y2: y(100), stroke: css("--ref"), "stroke-dasharray": "4 4", "stroke-width": 1.2}, svg);
+  const cada = Math.max(1, Math.ceil(n / (W < 600 ? 5 : 9)));
+  s.forEach((p, i) => { if ((i % cada === 0 && x(s[n - 1].fecha) - x(p.fecha) > 48) || i === n - 1) el("text", {x: x(p.fecha), y: H - 8, "text-anchor": "middle"}, svg).textContent = fechaCorta(p.fecha); });
+  const linea = s.map((p, i) => (i ? "L" : "M") + x(p.fecha).toFixed(1) + "," + y(p.indice).toFixed(1)).join("");
+  el("path", {d: linea, fill: "none", stroke: css("--s1"), "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round"}, svg);
+  const ult = s[n - 1];
+  el("circle", {cx: x(ult.fecha), cy: y(ult.indice), r: 4.5, fill: css("--s1"), stroke: css("--surface"), "stroke-width": 2}, svg);
+  el("text", {x: x(ult.fecha) + 10, y: y(ult.indice) + 4, "font-weight": 700}, svg).textContent = ult.indice.toLocaleString("es-AR", {minimumFractionDigits: 2});
+  // hover
+  const guia = el("line", {y1: m.t, y2: H - m.b, stroke: css("--ref"), "stroke-width": 1, opacity: 0}, svg);
+  const punto = el("circle", {r: 5, fill: css("--s1"), stroke: css("--surface"), "stroke-width": 2, opacity: 0}, svg);
+  const capa = el("rect", {x: m.l, y: m.t, width: W - m.l - m.r, height: H - m.t - m.b, fill: "transparent"}, svg);
+  capa.addEventListener("mousemove", ev => {
+    const r = svg.getBoundingClientRect(), px = (ev.clientX - r.left) * W / r.width;
+    let best = 0; s.forEach((p, i) => { if (Math.abs(x(p.fecha) - px) < Math.abs(x(s[best].fecha) - px)) best = i; });
+    const p = s[best];
+    guia.setAttribute("x1", x(p.fecha)); guia.setAttribute("x2", x(p.fecha)); guia.setAttribute("opacity", 1);
+    punto.setAttribute("cx", x(p.fecha)); punto.setAttribute("cy", y(p.indice)); punto.setAttribute("opacity", 1);
+    showTip(`${fechaLarga(p.fecha)}<br>Índice <b>${p.indice.toLocaleString("es-AR", {minimumFractionDigits: 2})}</b><br>CBA online <b>${pesos(p.cba)}</b>`, ev);
+  });
+  capa.addEventListener("mouseleave", () => { hideTip(); guia.setAttribute("opacity", 0); punto.setAttribute("opacity", 0); });
+}
+
+function chartCadenas(d) {
+  const svg = $("chCadenas"); svg.innerHTML = "";
+  const W = ancho(svg, 520), H = 300, m = {l: 52, r: 66, t: 26, b: 30};
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const c = d.cadenas, max = Math.max(...c.map(x => x.cba), d.indec.valor) * 1.12;
+  const y = v => m.t + (1 - v / max) * (H - m.t - m.b);
+  const bw = (W - m.l - m.r) / c.length;
+  for (let v = 0; v <= max; v += 100000) {
+    el("line", {x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), class: "gridline"}, svg);
+    el("text", {x: m.l - 8, y: y(v) + 4, "text-anchor": "end"}, svg).textContent = (v / 1000) + " mil";
+  }
+  c.forEach((k, i) => {
+    const cx = m.l + bw * i + bw / 2, w = Math.min(84, bw * 0.58), top = y(k.cba), base = y(0);
+    const r = 4, xL = cx - w / 2;
+    const path = `M${xL},${base}V${top + r}Q${xL},${top} ${xL + r},${top}H${xL + w - r}Q${xL + w},${top} ${xL + w},${top + r}V${base}Z`;
+    const b = el("path", {d: path, fill: css(COLOR[k.cadena])}, svg);
+    el("text", {x: cx, y: top - 8, "text-anchor": "middle", "font-weight": 700}, svg).textContent = pesos(k.cba);
+    el("text", {x: cx, y: H - 8, "text-anchor": "middle"}, svg).textContent = k.cadena;
+    const hit = el("rect", {x: cx - bw / 2, y: m.t, width: bw, height: H - m.t - m.b, fill: "transparent"}, svg);
+    hit.addEventListener("mousemove", ev => showTip(`<b>${k.cadena}</b><br>Adulto equivalente <b>${pesos(k.cba)}</b><br>Familia tipo <b>${pesos(k.familia)}</b><br>vs. INDEC <b>${pct(k.vs_indec)}</b>`, ev));
+    hit.addEventListener("mouseleave", hideTip);
+  });
+  el("line", {x1: m.l, x2: W - m.r, y1: y(d.indec.valor), y2: y(d.indec.valor), stroke: css("--ref"), "stroke-dasharray": "5 4", "stroke-width": 1.4}, svg);
+  const t = el("text", {x: W - m.r + 8, y: y(d.indec.valor) - 4}, svg); t.textContent = "INDEC";
+  const t2 = el("text", {x: W - m.r + 8, y: y(d.indec.valor) + 11}, svg); t2.textContent = d.indec.mes.slice(0, 3) + ". " + d.indec.mes.slice(-4);
+  const bar = c[0], car = c[c.length - 1];
+  $("cadenasFoot").textContent = `Para una familia tipo, comprar en ${car.cadena} en lugar de ${bar.cadena} cuesta ${pesos((car.cba - bar.cba) * 3.09)} más por mes.`;
+}
+
+function chartComp(d) {
+  const svg = $("chComp"); svg.innerHTML = "";
+  const top = d.composicion.slice(0, 8), resto = 100 - top.reduce((a, b) => a + b.pct, 0);
+  const W = ancho(svg, 520), H = 300, m = {l: W < 420 ? 118 : 150, r: 48, t: 6, b: 6};
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const max = top[0].pct * 1.05, bh = (H - m.t - m.b) / top.length;
+  top.forEach((k, i) => {
+    const yy = m.t + i * bh, h = Math.min(22, bh * 0.62), w = (k.pct / max) * (W - m.l - m.r);
+    el("text", {x: m.l - 10, y: yy + bh / 2 + 4, "text-anchor": "end"}, svg).textContent = k.rubro;
+    const r = 4, y0 = yy + (bh - h) / 2;
+    el("path", {d: `M${m.l},${y0}H${m.l + w - r}Q${m.l + w},${y0} ${m.l + w},${y0 + r}V${y0 + h - r}Q${m.l + w},${y0 + h} ${m.l + w - r},${y0 + h}H${m.l}Z`, fill: css("--s1")}, svg);
+    el("text", {x: m.l + w + 6, y: yy + bh / 2 + 4, "font-weight": 600}, svg).textContent = k.pct.toLocaleString("es-AR", {minimumFractionDigits: 1}) + "%";
+    const hit = el("rect", {x: 0, y: yy, width: W, height: bh, fill: "transparent"}, svg);
+    hit.addEventListener("mousemove", ev => showTip(`<b>${k.rubro}</b>: ${k.pct.toLocaleString("es-AR", {minimumFractionDigits: 1})}% del costo`, ev));
+    hit.addEventListener("mouseleave", hideTip);
+  });
+  const cinco = d.composicion.slice(0, 5).reduce((a, b) => a + b.pct, 0);
+  $("compFoot").textContent = `Los 5 primeros rubros explican el ${cinco.toLocaleString("es-AR", {maximumFractionDigits: 1})}% del costo; los ${d.composicion.length - 8} restantes suman ${resto.toLocaleString("es-AR", {maximumFractionDigits: 1})}%.`;
+}
+
+function dibujar(d) {
+  $("fechaUlt").textContent = fechaLarga(d.fecha_ultima);
+  $("actualizado").textContent = "Procesado: " + d.actualizado.replace(/(\d+)-(\d+)-(\d+)/, "$3/$2/$1") + " h";
+  $("cbaHoy").textContent = pesos(d.hoy.cba);
+  $("cbaNota").innerHTML = d.hoy.var_diaria === null ? "" :
+    `<span class="${d.hoy.var_diaria > 0 ? "up" : "down"}">${pct(d.hoy.var_diaria, 2)}</span> contra el día anterior`;
+  $("familia").textContent = pesos(d.hoy.familia);
+  $("brecha").innerHTML = `<span class="up">${pct(d.hoy.brecha)}</span>`;
+  $("brechaNota").textContent = `vs. CBA oficial de ${d.indec.mes} (${pesos(d.indec.valor)})`;
+  $("acum").innerHTML = `<span class="${d.hoy.var_acum > 0 ? "up" : "down"}">${pct(d.hoy.var_acum, 2)}</span>`;
+  $("acumNota").textContent = `desde el ${fechaLarga(d.fecha_base)} · ${d.dias} días relevados`;
+  $("acierto").textContent = d.acierto_ia;
+  $("imputados").textContent = d.imputados_pct.toLocaleString("es-AR") + "%";
+  chartIndice(d); chartCadenas(d); chartComp(d);
+
+  const tb = document.querySelector("#tablaSerie tbody"); tb.innerHTML = "";
+  [...d.serie].reverse().forEach(p => tb.insertAdjacentHTML("beforeend",
+    `<tr><td>${fechaLarga(p.fecha)}</td><td class="num">${p.indice.toLocaleString("es-AR", {minimumFractionDigits: 2})}</td><td class="num">${pesos(p.cba)}</td></tr>`));
+  const tw = document.querySelector("#tablaWil tbody"); tw.innerHTML = "";
+  d.wilcoxon.forEach(w => {
+    const si = w.p < 0.05;
+    const p = w.p < 0.001 ? "< 0,001" : w.p.toLocaleString("es-AR", {maximumFractionDigits: 3});
+    tw.insertAdjacentHTML("beforeend", `<tr><td>${w.cara} vs. ${w.barata}</td><td class="num">${w.n}</td><td class="num">${pct(w.dif_mediana)}</td><td class="num">${p}</td><td><span class="pill ${si ? "si" : ""}">${si ? "Sí" : "No"}</span></td></tr>`);
+  });
+}
+
+fetch("datos.json", {cache: "no-store"}).then(r => r.json()).then(d => { window.DATOS = d; dibujar(d); })
+  .catch(() => { $("cbaHoy").textContent = "Sin datos"; });
+</script>
+</body>
+</html>
