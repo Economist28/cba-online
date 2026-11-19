@@ -1,18 +1,18 @@
 {
- "actualizado": "2026-11-19 10:42",
+ "actualizado": "2026-11-19 15:06",
  "fecha_ultima": "2026-11-19",
  "fecha_base": "2026-10-07",
  "dias": 42,
  "precios_relevados": 64518,
  "precios_validos": 32872,
  "indec": {
-  "valor": 239058.22,
-  "mes": "septiembre 2026"
+  "valor": 246362.93,
+  "mes": "Octubre 2026"
  },
  "hoy": {
   "cba": 272923,
   "familia": 843331,
-  "brecha": 14.2,
+  "brecha": 10.8,
   "var_acum": 1.99,
   "var_diaria": 1.35
  },
@@ -233,19 +233,19 @@
    "cadena": "Carrefour",
    "cba": 264860,
    "familia": 818416,
-   "vs_indec": 10.8
+   "vs_indec": 7.5
   },
   {
    "cadena": "Día",
    "cba": 279345,
    "familia": 863176,
-   "vs_indec": 16.9
+   "vs_indec": 13.4
   },
   {
    "cadena": "Jumbo",
    "cba": 298936,
    "familia": 923712,
-   "vs_indec": 25.0
+   "vs_indec": 21.3
   }
  ],
  "composicion": [
