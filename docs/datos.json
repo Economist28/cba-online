@@ -1,20 +1,20 @@
 {
- "actualizado": "2026-11-21 10:20",
- "fecha_ultima": "2026-11-21",
+ "actualizado": "2026-11-22 10:18",
+ "fecha_ultima": "2026-11-22",
  "fecha_base": "2026-10-07",
- "dias": 44,
- "precios_relevados": 67586,
- "precios_validos": 34445,
+ "dias": 45,
+ "precios_relevados": 69120,
+ "precios_validos": 35228,
  "indec": {
   "valor": 246362.93,
   "mes": "octubre 2026"
  },
  "hoy": {
-  "cba": 267036,
-  "familia": 825142,
+  "cba": 267039,
+  "familia": 825151,
   "brecha": 8.4,
   "var_acum": -0.21,
-  "var_diaria": 0.05
+  "var_diaria": 0.0
  },
  "serie": [
   {
@@ -236,26 +236,31 @@
    "fecha": "2026-11-21",
    "indice": 99.79,
    "cba": 267036
+  },
+  {
+   "fecha": "2026-11-22",
+   "indice": 99.79,
+   "cba": 267039
   }
  ],
  "cadenas": [
   {
    "cadena": "Carrefour",
-   "cba": 264898,
-   "familia": 818534,
+   "cba": 264956,
+   "familia": 818713,
    "vs_indec": 7.5
   },
   {
    "cadena": "Día",
-   "cba": 279867,
-   "familia": 864789,
-   "vs_indec": 13.6
+   "cba": 280102,
+   "familia": 865516,
+   "vs_indec": 13.7
   },
   {
    "cadena": "Jumbo",
-   "cba": 299272,
-   "familia": 924749,
-   "vs_indec": 21.5
+   "cba": 299186,
+   "familia": 924486,
+   "vs_indec": 21.4
   }
  ],
  "composicion": [
@@ -385,22 +390,22 @@
    "cara": "Jumbo",
    "barata": "Carrefour",
    "n": 56,
-   "dif_mediana": 16.8,
-   "p": 0.0005110095900176179
+   "dif_mediana": 16.6,
+   "p": 0.0005267702694256983
   },
   {
    "cara": "Día",
    "barata": "Carrefour",
    "n": 52,
    "dif_mediana": 1.1,
-   "p": 0.8841497998969845
+   "p": 0.8913440116875622
   },
   {
    "cara": "Jumbo",
    "barata": "Día",
    "n": 52,
-   "dif_mediana": 18.4,
-   "p": 7.447764611278298e-05
+   "dif_mediana": 18.7,
+   "p": 7.737066661431227e-05
   }
  ],
  "imputados_pct": 5.3,
